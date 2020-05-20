@@ -1,0 +1,27 @@
+{
+  "name": "osa9",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "ts-node",
+    "calculateBmi": "ts-node bmiCalculator.ts",
+    "calculateExercises": "ts-node exerciseCalculator.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellamac/fs-mooc-part9.git"
+  },
+  "author": "Ella Mäkelä",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ellamac/fs-mooc-part9/issues"
+  },
+  "homepage": "https://github.com/ellamac/fs-mooc-part9#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.4",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.3"
+  }
+}
