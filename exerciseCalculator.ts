@@ -15,18 +15,24 @@ interface ExerciseValues {
   value2: Array<number>;
 }
 
-const parseArguments = (args: Array<string>): ExerciseValues => {
-  if (args.length < 4) throw new Error('Not enough arguments');
+interface JsonError {
+  error: string;
+}
 
-  let array = args.slice(3, args.length);
-  const value2 = array.map((d) => {
+export const parseExerciseArguments = (
+  target: string,
+  daily: Array<string>
+): ExerciseValues => {
+  if (!target || !daily) throw new Error('Not enough arguments');
+
+  const value2 = daily.map((d) => {
     if (!isNaN(Number(d))) {
       return Number(d);
     } else {
       throw new Error('Provided values were not numbers!');
     }
   });
-  let target = args[2];
+
   const value1 = !isNaN(Number(target)) ? Number(target) : null;
   if (value1 === null) {
     throw new Error('Provided values were not numbers!');
@@ -35,24 +41,25 @@ const parseArguments = (args: Array<string>): ExerciseValues => {
   return { value1, value2 };
 };
 
-const calculateExercise = (
+export const calculateExercise = (
   target: number,
   daily: Array<number>
-): ExerciseResults => {
+): ExerciseResults | JsonError => {
   if (isNaN(target)) {
-    throw new Error('Target value was not a number');
+    return { error: 'malformatted parameters' };
   }
   let trainingDays = 0;
   let trainingHours = 0;
-  daily.map((d) => {
+  const mappedDaily = daily.map((d) => {
     if (isNaN(d)) {
-      throw new Error('Provided daily exercise hours were not numbers');
+      return -1;
     }
     if (d > 0) {
       trainingDays++;
       trainingHours = trainingHours + d;
     }
   });
+  if (mappedDaily.includes(-1)) return { error: 'malformatted parameters' };
 
   const average = trainingHours / daily.length;
   const success = average >= target ? true : false;
@@ -74,10 +81,3 @@ const calculateExercise = (
   };
   return results;
 };
-
-try {
-  const { value1, value2 } = parseArguments(process.argv);
-  console.log(calculateExercise(value1, value2));
-} catch (e) {
-  console.log('Error, something bad happened, message: ', e.message);
-}
