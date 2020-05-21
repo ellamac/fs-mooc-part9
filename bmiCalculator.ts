@@ -17,7 +17,7 @@ interface ErrorJson {
   error: string;
 }
 
-const parseBmiArguments = (args: object): BmiValues => {
+const parseBmiArguments = (args: Query): BmiValues => {
   if (!('height' in args)) throw new Error('height missing');
   if (!('weight' in args)) throw new Error('weight missing');
 
