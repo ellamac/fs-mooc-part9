@@ -1,11 +1,6 @@
 import express from 'express';
 import { calculateBmi } from './bmiCalculator';
-import {
-  calculateExercise,
-  parseExerciseArguments,
-} from './exerciseCalculator';
-import { CLIENT_RENEG_WINDOW } from 'tls';
-import { rejects } from 'assert';
+import { calculateExercise } from './exerciseCalculator';
 const app = express();
 app.use(express.json());
 
